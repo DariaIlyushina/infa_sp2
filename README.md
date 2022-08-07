@@ -1,4 +1,4 @@
-## YaMDb
+## YaMDb о проекте и авторах
 Проект является агрегатором отзывов о фильмах, книгах и музыке
 Авторы: Илюшина Дарья, Шурховецкий, Скрипкин Максим
 
@@ -62,15 +62,35 @@ $ python manage.py runserver
 |"role"|"string"| Enum: "user" "moderator" "admin"|  
 
 Ответ (200):
-|Ключ|Значение|Описание|
+|Ключ|Значение|Описутмание|
 |----|--------|--------|
 |"first_name"|"string"|Имя|
 |"last_name"|"string"|Фамилия|
 |"username"|"string"|Username|
 |"bio"|"string"|О себе|
 |"email"|"string"|Адрес электронной почты|
-|"role"|"string"| Enum: "user" "moderator" "admin"|  
+|"role"|"string"| Enum: "user" "moderator" "admin"|
 
-** 
+**
 
-__**Полная информация о данном API находится по адресу http://127.0.0.1:8000/redoc/**__
+## Пример заполнения env
+
+DB_ENGINE=django.db.backends.postgresql - указываем, что работаем с postgresql
+DB_NAME=postgres - имя базы данных
+POSTGRES_USER=postgres - логин для подключения к базе данных
+POSTGRES_PASSWORD=postgres - пароль для подключения к БД (установите свой)
+DB_HOST=db - название сервиса (контейнера)
+DB_PORT=5432 - порт для подключения к БД 
+
+## Запуск контейнера
+
+cd infra/ - переходим в директорию
+docker-compose up -d --build - запускаем контейнер
+docker-compose exec web python manage.py migrate - делаем миграции
+docker-compose exec web python manage.py createsuperuser - создаём супер пользователя
+docker-compose exec web python manage.py collectstatic --no-input - подключем статику
+
+## Копирование базы
+
+docker-compose exec web python manage.py dumpdata > fixtures.json
+
