@@ -104,3 +104,6 @@ docker-compose exec web python manage.py collectstatic --no-input - подклю
 
 docker-compose exec web python manage.py dumpdata > fixtures.json
 
+## Наполнение БД fixtures
+
+docker-compose exec web python manage.py loaddata <fixtures name>.json
